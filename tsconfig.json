@@ -1,0 +1,7 @@
+{
+  "extends": "@osskit/tsconfig",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"]
+}
