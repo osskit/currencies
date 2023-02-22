@@ -1,4 +1,4 @@
-import { data, currencyCodeSchema, currencySchema } from '../src/index.js';
+import { data, getByCode, getByNumber } from '../src/index.js';
 
 describe('currencies', () => {
   describe('exports', () => {
@@ -6,12 +6,12 @@ describe('currencies', () => {
       expect(typeof data).toBe('object');
     });
 
-    it('should expose a currency code schema', () => {
-      expect(typeof currencyCodeSchema).toBe('object');
+    it('should expose a get currency by code', () => {
+      expect(typeof getByCode).toBe('function');
     });
 
-    it('should expose a currency schema', () => {
-      expect(typeof currencySchema).toBe('object');
+    it('should expose a get currency by number', () => {
+      expect(typeof getByNumber).toBe('function');
     });
   });
 });
