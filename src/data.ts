@@ -354,6 +354,7 @@ export const data = [
       'Andorra',
       'Austria',
       'Belgium',
+      'Croatia',
       'Cyprus',
       'Estonia',
       'European Union',
