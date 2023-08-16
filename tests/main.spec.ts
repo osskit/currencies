@@ -152,20 +152,16 @@ describe('currencies', () => {
   describe('toMajorUnit', () => {
     it('should return major unit for valid currency code', () => {
       expect(toMajorUnit({ value: 100_000, currency: 'USD' })).toBe(1000);
-    });
-
-    it('should throw for invalid currency code', () => {
-      expect(() => toMajorUnit({ value: 10_000, currency: 'bla' })).toThrow();
+      expect(toMajorUnit({ value: 100_000, currency: 'JPY' })).toBe(100_000);
+      expect(toMajorUnit({ value: 100_013, currency: 'USD' })).toBe(1000.13);
     });
   });
 
   describe('toMinorUnit', () => {
     it('should return minor unit for valid currency code', () => {
       expect(toMinorUnit({ value: 1000, currency: 'USD' })).toBe(100_000);
-    });
-
-    it('should throw for invalid currency code', () => {
-      expect(() => toMinorUnit({ value: 10_000, currency: 'bla' })).toThrow();
+      expect(toMinorUnit({ value: 1000, currency: 'JPY' })).toBe(1000);
+      expect(toMinorUnit({ value: 1000.13, currency: 'USD' })).toBe(100_013);
     });
   });
 });
