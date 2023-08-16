@@ -1,4 +1,4 @@
-import { data, getByCode, getByNumber, getCodes, isCurrencyCode } from '../src/index.js';
+import { data, getByCode, getByNumber, getCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
 
 describe('currencies', () => {
   describe('exports', () => {
@@ -20,6 +20,14 @@ describe('currencies', () => {
 
     it('should expose is currency code', () => {
       expect(typeof isCurrencyCode).toBe('function');
+    });
+
+    it('should expose to major unit', () => {
+      expect(typeof toMajorUnit).toBe('function');
+    });
+
+    it('should expose to minor unit', () => {
+      expect(typeof toMinorUnit).toBe('function');
     });
   });
 
@@ -138,6 +146,22 @@ describe('currencies', () => {
 
     it('should return false for invalid currency code', () => {
       expect(isCurrencyCode('EURO')).toBe(false);
+    });
+  });
+
+  describe('toMajorUnit', () => {
+    it('should return major unit for valid currency code', () => {
+      expect(toMajorUnit({ value: 100_000, currency: 'USD' })).toBe(1000);
+      expect(toMajorUnit({ value: 100_000, currency: 'JPY' })).toBe(100_000);
+      expect(toMajorUnit({ value: 100_013, currency: 'USD' })).toBe(1000.13);
+    });
+  });
+
+  describe('toMinorUnit', () => {
+    it('should return minor unit for valid currency code', () => {
+      expect(toMinorUnit({ value: 1000, currency: 'USD' })).toBe(100_000);
+      expect(toMinorUnit({ value: 1000, currency: 'JPY' })).toBe(1000);
+      expect(toMinorUnit({ value: 1000.13, currency: 'USD' })).toBe(100_013);
     });
   });
 });
