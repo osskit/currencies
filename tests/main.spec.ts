@@ -1,4 +1,4 @@
-import { data, getByCode, getByNumber, getCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
+import { data, getByCode, getByNumber, getSymbolByCode, getCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
 
 describe('currencies', () => {
   describe('exports', () => {
@@ -28,6 +28,10 @@ describe('currencies', () => {
 
     it('should expose to minor unit', () => {
       expect(typeof toMinorUnit).toBe('function');
+    });
+
+    it('should expose get symbol by code', () => {
+      expect(typeof getSymbolByCode).toBe('function');
     });
   });
 
@@ -77,6 +81,7 @@ describe('currencies', () => {
           "currency": "Euro",
           "digits": 2,
           "number": "978",
+          "symbol": "€",
         }
       `);
     });
@@ -128,6 +133,7 @@ describe('currencies', () => {
           "currency": "Euro",
           "digits": 2,
           "number": "978",
+          "symbol": "€",
         }
       `);
     });
@@ -135,7 +141,7 @@ describe('currencies', () => {
 
   describe('getCodes', () => {
     it('should return the codes', () => {
-      expect(getCodes()).toHaveLength(179);
+      expect(getCodes()).toHaveLength(177);
     });
   });
 
@@ -162,6 +168,14 @@ describe('currencies', () => {
       expect(toMinorUnit({ value: 1000, currency: 'USD' })).toBe(100_000);
       expect(toMinorUnit({ value: 1000, currency: 'JPY' })).toBe(1000);
       expect(toMinorUnit({ value: 1000.13, currency: 'USD' })).toBe(100_013);
+    });
+  });
+
+  describe('getSymbolByCode', () => {
+    it('should return symbol for valid currency code', () => {
+      expect(getSymbolByCode('USD')).toBe('$');
+      expect(getSymbolByCode('JPY')).toBe('¥');
+      expect(getSymbolByCode('EUR')).toBe('€');
     });
   });
 });

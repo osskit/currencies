@@ -6,3 +6,4 @@ export const getByNumber = (number: string) => data.find(({ number: currentNumbe
 export const getCodes = () => data.map(({ code }) => code);
 export const isCurrencyCode = (code: unknown): code is CurrencyCode =>
   typeof code === 'string' && getCodes().includes(code as CurrencyCode);
+export const getSymbolByCode = (code: string) => getByCode(code)?.symbol;
