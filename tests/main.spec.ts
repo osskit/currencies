@@ -1,5 +1,5 @@
 import { expectType } from 'tsd';
-import type { Currency } from '../src/index.js';
+import type { Currency, CurrencyCode } from '../src/index.js';
 import { data, getByCode, getByNumber, getSymbolByCode, currencyCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
 
 describe('currencies', () => {
@@ -128,6 +128,16 @@ describe('currencies', () => {
       expect(currency).toBeUndefined();
 
       expectType<Currency | undefined>(currency);
+    });
+
+    it('should return type for currency code', () => {
+      const bla = 'EUR' as CurrencyCode;
+
+      const currency = getByCode(bla);
+
+      expect(currency).toBeDefined();
+
+      expectType<Currency>(currency);
     });
   });
 
