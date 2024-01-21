@@ -1,4 +1,4 @@
-import { data, getByCode, getByNumber, getSymbolByCode, getCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
+import { data, getByCode, getByNumber, getSymbolByCode, currencyCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
 
 describe('currencies', () => {
   describe('exports', () => {
@@ -15,7 +15,7 @@ describe('currencies', () => {
     });
 
     it('should expose a get codes', () => {
-      expect(typeof getCodes).toBe('function');
+      expect(typeof currencyCodes).toBe('object');
     });
 
     it('should expose is currency code', () => {
@@ -141,7 +141,7 @@ describe('currencies', () => {
 
   describe('getCodes', () => {
     it('should return the codes', () => {
-      expect(getCodes()).toHaveLength(177);
+      expect(currencyCodes).toHaveLength(177);
     });
   });
 
