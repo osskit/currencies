@@ -16,7 +16,7 @@ describe('currencies', () => {
       expect(typeof getByNumber).toBe('function');
     });
 
-    it('should expose a get codes', () => {
+    it('should expose currency codes', () => {
       expect(typeof currencyCodes).toBe('object');
     });
 
@@ -193,7 +193,7 @@ describe('currencies', () => {
     });
   });
 
-  describe('getCodes', () => {
+  describe('currency codes', () => {
     it('should return the codes', () => {
       expect(currencyCodes).toHaveLength(177);
     });
