@@ -1,4 +1,6 @@
-import { data, getByCode, getByNumber, getCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
+import { expectType } from 'tsd';
+import type { Currency, CurrencyCode } from '../src/index.js';
+import { data, getByCode, getByNumber, getSymbolByCode, currencyCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
 
 describe('currencies', () => {
   describe('exports', () => {
@@ -14,8 +16,8 @@ describe('currencies', () => {
       expect(typeof getByNumber).toBe('function');
     });
 
-    it('should expose a get codes', () => {
-      expect(typeof getCodes).toBe('function');
+    it('should expose currency codes', () => {
+      expect(typeof currencyCodes).toBe('object');
     });
 
     it('should expose is currency code', () => {
@@ -28,6 +30,10 @@ describe('currencies', () => {
 
     it('should expose to minor unit', () => {
       expect(typeof toMinorUnit).toBe('function');
+    });
+
+    it('should expose get symbol by code', () => {
+      expect(typeof getSymbolByCode).toBe('function');
     });
   });
 
@@ -77,8 +83,61 @@ describe('currencies', () => {
           "currency": "Euro",
           "digits": 2,
           "number": "978",
+          "symbol": "€",
         }
       `);
+    });
+
+    it('should return typed response', () => {
+      const value = getByCode('USD');
+
+      expect(value.digits).toBe(2);
+
+      expectType<{
+        code: 'USD';
+        countries: readonly [
+          'American Samoa',
+          'Bonaire, Sint Eustatius and Saba',
+          'British Indian Ocean Territory (The)',
+          'Ecuador',
+          'El Salvador',
+          'Guam',
+          'Haiti',
+          'Marshall Islands (The)',
+          'Micronesia (Federated States Of)',
+          'Northern Mariana Islands (The)',
+          'Palau',
+          'Panama',
+          'Puerto Rico',
+          'Timor-Leste',
+          'Turks and Caicos Islands (The)',
+          'United States Minor Outlying Islands (The)',
+          'United States of America (The)',
+          'Virgin Islands (British)',
+          'Virgin Islands (U.S.)',
+        ];
+        currency: 'US Dollar';
+        digits: 2;
+        number: '840';
+        symbol: '$';
+      }>(value);
+    });
+
+    it('should return type for string', () => {
+      const currency = getByCode('EURO');
+      expect(currency).toBeUndefined();
+
+      expectType<Currency | undefined>(currency);
+    });
+
+    it('should return type for currency code', () => {
+      const bla = 'EUR' as CurrencyCode;
+
+      const currency = getByCode(bla);
+
+      expect(currency).toBeDefined();
+
+      expectType<Currency>(currency);
     });
   });
 
@@ -128,14 +187,15 @@ describe('currencies', () => {
           "currency": "Euro",
           "digits": 2,
           "number": "978",
+          "symbol": "€",
         }
       `);
     });
   });
 
-  describe('getCodes', () => {
+  describe('currency codes', () => {
     it('should return the codes', () => {
-      expect(getCodes()).toHaveLength(179);
+      expect(currencyCodes).toHaveLength(177);
     });
   });
 
@@ -162,6 +222,14 @@ describe('currencies', () => {
       expect(toMinorUnit({ value: 1000, currency: 'USD' })).toBe(100_000);
       expect(toMinorUnit({ value: 1000, currency: 'JPY' })).toBe(1000);
       expect(toMinorUnit({ value: 1000.13, currency: 'USD' })).toBe(100_013);
+    });
+  });
+
+  describe('getSymbolByCode', () => {
+    it('should return symbol for valid currency code', () => {
+      expect(getSymbolByCode('USD')).toBe('$');
+      expect(getSymbolByCode('JPY')).toBe('¥');
+      expect(getSymbolByCode('EUR')).toBe('€');
     });
   });
 });
