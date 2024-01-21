@@ -195,7 +195,7 @@ describe('currencies', () => {
 
   describe('currency codes', () => {
     it('should return the codes', () => {
-      expect(currencyCodes).toHaveLength(177);
+      expect(currencyCodes).toHaveLength(179);
     });
   });
 
