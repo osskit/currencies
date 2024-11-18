@@ -1,6 +1,17 @@
 import { expectType } from 'tsd';
+import { describe, it, expect } from 'vitest';
 import type { Currency, CurrencyCode } from '../src/index.js';
-import { data, getByCode, getByNumber, getSymbolByCode, currencyCodes, isCurrencyCode, toMajorUnit, toMinorUnit } from '../src/index.js';
+import {
+  isAmount,
+  data,
+  getByCode,
+  getByNumber,
+  getSymbolByCode,
+  currencyCodes,
+  isCurrencyCode,
+  toMajorUnit,
+  toMinorUnit,
+} from '../src/index.js';
 
 describe('currencies', () => {
   describe('exports', () => {
@@ -230,6 +241,19 @@ describe('currencies', () => {
       expect(getSymbolByCode('USD')).toBe('$');
       expect(getSymbolByCode('JPY')).toBe('¥');
       expect(getSymbolByCode('EUR')).toBe('€');
+    });
+  });
+
+  describe('isAmount', () => {
+    it('should return true for valid amount', () => {
+      expect(isAmount({ value: 1000, currency: 'USD' })).toBe(true);
+      expect(isAmount({ value: 1000, currency: 'JPY' })).toBe(true);
+    });
+
+    it('should return false for invalid amount', () => {
+      expect(isAmount({ value: 1000, currency: 'EURO' })).toBe(false);
+      expect(isAmount({ value: 1000 })).toBe(false);
+      expect(isAmount({ currency: 'USD' })).toBe(false);
     });
   });
 });

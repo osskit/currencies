@@ -6,6 +6,8 @@ export const currencyCodes = Object.keys(data) as CurrencyCode[];
 export const currencyCodesSet = new Set(currencyCodes);
 export const isCurrencyCode = (code: unknown): code is CurrencyCode =>
   typeof code === 'string' && currencyCodesSet.has(code as CurrencyCode);
+
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
 export const getByCode = <Code extends string, R = Code extends CurrencyCode ? (typeof data)[Code] : Currency | undefined>(
   code: Code,
 ): R => {
