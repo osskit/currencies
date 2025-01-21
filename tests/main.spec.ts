@@ -11,6 +11,7 @@ import {
   isCurrencyCode,
   toMajorUnit,
   toMinorUnit,
+  calculateRate,
 } from '../src/index.js';
 
 describe('currencies', () => {
@@ -254,6 +255,22 @@ describe('currencies', () => {
       expect(isAmount({ value: 1000, currency: 'EURO' })).toBe(false);
       expect(isAmount({ value: 1000 })).toBe(false);
       expect(isAmount({ currency: 'USD' })).toBe(false);
+    });
+  });
+
+  describe('calculateRate', () => {
+    it.each(['USD', 'EUR', 'JPY', 'GBP'] satisfies CurrencyCode[])('returns 1 for same currency - %s', (currency) => {
+      expect(calculateRate({ value: 1000, currency }, { value: 1000, currency })).toBe(1);
+    });
+
+    it('handles currencies without minor units', () => {
+      expect(calculateRate({ value: 1000, currency: 'JPY' }, { value: 1000, currency: 'USD' })).toBe(0.01);
+      expect(calculateRate({ value: 1000, currency: 'USD' }, { value: 1000, currency: 'JPY' })).toBe(100);
+    });
+
+    it('handles currencies with minor units', () => {
+      expect(calculateRate({ value: 1000, currency: 'USD' }, { value: 800, currency: 'EUR' })).toBe(0.8);
+      expect(calculateRate({ value: 1000, currency: 'USD' }, { value: 1000, currency: 'GBP' })).toBe(1);
     });
   });
 });
