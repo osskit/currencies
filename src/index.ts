@@ -3,3 +3,4 @@ export type * from './types.js';
 export * from './currencies.js';
 export * from './conversion.js';
 export * from './amount.js';
+export * from './rate.js';
