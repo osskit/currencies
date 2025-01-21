@@ -259,11 +259,8 @@ describe('currencies', () => {
   });
 
   describe('calculateRate', () => {
-    it('returns 1 for same currency', () => {
-      expect(calculateRate({ value: 1000, currency: 'USD' }, { value: 1000, currency: 'USD' })).toBe(1);
-      expect(calculateRate({ value: 1000, currency: 'JPY' }, { value: 1000, currency: 'JPY' })).toBe(1);
-      expect(calculateRate({ value: 1000, currency: 'EUR' }, { value: 1000, currency: 'EUR' })).toBe(1);
-      expect(calculateRate({ value: 1000, currency: 'GBP' }, { value: 1000, currency: 'GBP' })).toBe(1);
+    it.each(['USD', 'EUR', 'JPY', 'GBP'] satisfies CurrencyCode[])('returns 1 for same currency - $s', (currency) => {
+      expect(calculateRate({ value: 1000, currency }, { value: 1000, currency })).toBe(1);
     });
 
     it('handles currencies without minor units', () => {
