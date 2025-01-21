@@ -259,7 +259,7 @@ describe('currencies', () => {
   });
 
   describe('calculateRate', () => {
-    it.each(['USD', 'EUR', 'JPY', 'GBP'] satisfies CurrencyCode[])('returns 1 for same currency - $s', (currency) => {
+    it.each(['USD', 'EUR', 'JPY', 'GBP'] satisfies CurrencyCode[])('returns 1 for same currency - %s', (currency) => {
       expect(calculateRate({ value: 1000, currency }, { value: 1000, currency })).toBe(1);
     });
 
