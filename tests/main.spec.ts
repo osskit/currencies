@@ -231,9 +231,9 @@ describe('currencies', () => {
 
   describe('toMinorUnit', () => {
     it('should return minor unit for valid currency code', () => {
-      expect(toMinorUnit({ value: 1000, currency: 'USD' })).toBe(100_000);
-      expect(toMinorUnit({ value: 1000, currency: 'JPY' })).toBe(1000);
-      expect(toMinorUnit({ value: 1000.13, currency: 'USD' })).toBe(100_013);
+      expect(toMinorUnit(1000, 'USD')).toBe(100_000);
+      expect(toMinorUnit(1000, 'JPY')).toBe(1000);
+      expect(toMinorUnit(1000.13, 'USD')).toBe(100_013);
     });
   });
 
