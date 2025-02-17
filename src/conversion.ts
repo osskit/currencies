@@ -1,14 +1,14 @@
 import { getByCode } from './currencies.js';
-import type { Amount } from './types.js';
+import type { Amount, CurrencyCode } from './types.js';
 
-export const toMinorUnit = ({ value, currency }: Amount) => {
+export const toMinorUnit = (majorUnitValue: number, currency: CurrencyCode) => {
   const currencyRecord = getByCode(currency);
 
   if (!currencyRecord) {
     throw new Error(`invalid currency ${currency}`);
   }
 
-  return Math.round(currencyRecord.digits === 0 ? value : value * 10 ** currencyRecord.digits);
+  return Math.round(currencyRecord.digits === 0 ? majorUnitValue : majorUnitValue * 10 ** currencyRecord.digits);
 };
 
 export const toMajorUnit = ({ value, currency }: Amount) => {
