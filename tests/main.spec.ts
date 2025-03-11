@@ -290,6 +290,8 @@ describe('currencies', () => {
 
     it('handles floating point rates correctly', () => {
       expect(applyRate({ value: 100_000, currency: 'USD' }, 'EUR', 0.85)).toEqual({ value: 85_000, currency: 'EUR' });
+      expect(applyRate({ value: 214_500, currency: 'EUR' }, 'USD', 1.08)).toEqual({ value: 231_660, currency: 'USD' });
+      expect(applyRate({ value: 150, currency: 'JPY' }, 'USD', 0.001)).toEqual({ value: 15, currency: 'USD' });
     });
 
     it('preserves target currency in result', () => {

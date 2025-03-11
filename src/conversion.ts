@@ -1,7 +1,7 @@
 import { getByCode } from './currencies.js';
 import type { Amount, CurrencyCode } from './types.js';
 
-export const toMinorUnit = (majorUnitValue: number, currency: CurrencyCode) => {
+export const toMinorUnit = (majorUnitValue: number, currency: CurrencyCode): number => {
   const currencyRecord = getByCode(currency);
 
   if (!currencyRecord) {
@@ -11,7 +11,7 @@ export const toMinorUnit = (majorUnitValue: number, currency: CurrencyCode) => {
   return Math.round(currencyRecord.digits === 0 ? majorUnitValue : majorUnitValue * 10 ** currencyRecord.digits);
 };
 
-export const toMajorUnit = ({ value, currency }: Amount) => {
+export const toMajorUnit = ({ value, currency }: Amount): number => {
   const currencyRecord = getByCode(currency);
 
   if (!currencyRecord) {
