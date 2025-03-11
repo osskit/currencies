@@ -1,0 +1,24 @@
+name: check-bump-version
+
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'src/**/*.ts'
+    branches: [main]
+
+concurrency:
+  group: check-bump-${{ github.head_ref }}
+  cancel-in-progress: true
+
+jobs:
+  check-bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: avides/actions-project-version-check@v1.4.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          file-to-check: package.json
