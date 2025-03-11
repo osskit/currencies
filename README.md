@@ -19,7 +19,17 @@ npm install @osskit/currencies
 ### Importing the library
 
 ```typescript
-import { getByCode, getByNumber, isCurrencyCode, toMajorUnit, toMinorUnit, getSymbolByCode, isAmount, calculateRate } from '@osskit/currencies';
+import {
+  getByCode,
+  getByNumber,
+  isCurrencyCode,
+  toMajorUnit,
+  toMinorUnit,
+  getSymbolByCode,
+  isAmount,
+  calculateRate,
+  applyRate,
+} from '@osskit/currencies';
 ```
 
 ### Examples
@@ -78,6 +88,13 @@ console.log(validAmount); // true
 ```typescript
 const rate = calculateRate({ value: 1000, currency: 'USD' }, { value: 800, currency: 'EUR' });
 console.log(rate); // 0.8
+```
+
+#### Apply exchange rate to amount
+
+```typescript
+const convertedAmount = applyRate({ value: 100_000, currency: 'USD' }, 'EUR', 0.8);
+console.log(convertedAmount); // { value: 80_000, currency: 'EUR' }
 ```
 
 ## Running Tests
