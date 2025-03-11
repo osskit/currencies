@@ -1,5 +1,5 @@
-import type { Amount } from './types.js';
-import { toMajorUnit } from './conversion.js';
+import type { Amount, CurrencyCode } from './types.js';
+import { toMajorUnit, toMinorUnit } from './conversion.js';
 
 const JS_BUFFER_MULTIPLIER = 10_000;
 
@@ -8,4 +8,12 @@ export const calculateRate = (from: Amount, to: Amount) => {
   const toInMajor = toMajorUnit(to);
 
   return (JS_BUFFER_MULTIPLIER * toInMajor) / (JS_BUFFER_MULTIPLIER * fromInMajor);
+};
+
+export const applyRate = (amount: Amount, targetCurrency: CurrencyCode, rate: number): Amount => {
+  const amountInMajor = toMajorUnit(amount);
+  const convertedAmountInMajor = amountInMajor * rate;
+  const convertedAmountInMinor = toMinorUnit(convertedAmountInMajor, targetCurrency);
+
+  return { value: convertedAmountInMinor, currency: targetCurrency };
 };

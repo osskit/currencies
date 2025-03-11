@@ -12,6 +12,7 @@ import {
   toMajorUnit,
   toMinorUnit,
   calculateRate,
+  applyRate,
 } from '../src/index.js';
 
 describe('currencies', () => {
@@ -275,6 +276,24 @@ describe('currencies', () => {
 
     it('handles floating point correctly', () => {
       expect(calculateRate({ value: 214_500, currency: 'EUR' }, { value: 231_660, currency: 'USD' })).toBe(1.08);
+    });
+  });
+
+  describe('applyRate', () => {
+    it('converts USD to EUR at 0.8 rate', () => {
+      expect(applyRate({ value: 100_000, currency: 'USD' }, 'EUR', 0.8)).toEqual({ value: 80_000, currency: 'EUR' });
+    });
+
+    it('converts EUR to JPY at 160 rate', () => {
+      expect(applyRate({ value: 100_000, currency: 'EUR' }, 'JPY', 160)).toEqual({ value: 160_000, currency: 'JPY' });
+    });
+
+    it('handles floating point rates correctly', () => {
+      expect(applyRate({ value: 100_000, currency: 'USD' }, 'EUR', 0.85)).toEqual({ value: 85_000, currency: 'EUR' });
+    });
+
+    it('preserves target currency in result', () => {
+      expect(applyRate({ value: 100_000, currency: 'USD' }, 'GBP', 1)).toEqual({ value: 100_000, currency: 'GBP' });
     });
   });
 });
