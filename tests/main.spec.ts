@@ -279,7 +279,7 @@ describe('currencies', () => {
     });
 
     it('handles negative values correctly', () => {
-      expect(calculateRate({ value: -1000, currency: 'USD' }, { value: -800, currency: 'EUR' })).toBe(0.8);
+      expect(calculateRate({ value: -1000, currency: 'USD' }, { value: 800, currency: 'EUR' })).toBe(0.8);
       expect(calculateRate({ value: -1000, currency: 'USD' }, { value: -1000, currency: 'GBP' })).toBe(1);
     });
   });
