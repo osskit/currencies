@@ -12,7 +12,7 @@ export const calculateRate = (from: Amount, to: Amount) => {
 
 export const applyRate = (amount: Amount, targetCurrency: CurrencyCode, rate: number): Amount => {
   const amountInMajor = toMajorUnit(amount);
-  const convertedAmountInMajor = amountInMajor * rate;
+  const convertedAmountInMajor = Math.abs(amountInMajor * rate);
   const convertedAmountInMinor = toMinorUnit(convertedAmountInMajor, targetCurrency);
 
   return { value: convertedAmountInMinor, currency: targetCurrency };

@@ -277,6 +277,11 @@ describe('currencies', () => {
     it('handles floating point correctly', () => {
       expect(calculateRate({ value: 214_500, currency: 'EUR' }, { value: 231_660, currency: 'USD' })).toBe(1.08);
     });
+
+    it('handles negative values correctly', () => {
+      expect(calculateRate({ value: -1000, currency: 'USD' }, { value: -800, currency: 'EUR' })).toBe(0.8);
+      expect(calculateRate({ value: -1000, currency: 'USD' }, { value: -1000, currency: 'GBP' })).toBe(1);
+    });
   });
 
   describe('applyRate', () => {
