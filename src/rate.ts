@@ -7,7 +7,7 @@ export const calculateRate = (from: Amount, to: Amount) => {
   const fromInMajor = toMajorUnit(from);
   const toInMajor = toMajorUnit(to);
 
-  return (JS_BUFFER_MULTIPLIER * toInMajor) / (JS_BUFFER_MULTIPLIER * fromInMajor);
+  return Math.abs((JS_BUFFER_MULTIPLIER * toInMajor) / (JS_BUFFER_MULTIPLIER * fromInMajor));
 };
 
 export const applyRate = (amount: Amount, targetCurrency: CurrencyCode, rate: number): Amount => {
