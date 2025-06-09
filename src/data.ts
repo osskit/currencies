@@ -189,6 +189,7 @@ export const data = {
   LKR: { code: 'LKR', number: '144', digits: 2, currency: 'Sri Lanka Rupee', countries: ['Sri Lanka'], symbol: '₨' },
   LRD: { code: 'LRD', number: '430', digits: 2, currency: 'Liberian Dollar', countries: ['Liberia'], symbol: '$' },
   LSL: { code: 'LSL', number: '426', digits: 2, currency: 'Loti', countries: ['Lesotho'], symbol: 'M' },
+  LTL: { code: 'LTL', number: '440', digits: 2, currency: 'Lithuanian Litas', countries: ['Lithuania'], symbol: 'Lt' },
   LYD: { code: 'LYD', number: '434', digits: 3, currency: 'Libyan Dinar', countries: ['Libya'], symbol: 'LD' },
   MAD: { code: 'MAD', number: '504', digits: 2, currency: 'Moroccan Dirham', countries: ['Morocco', 'Western Sahara'], symbol: 'MAD' },
   MDL: { code: 'MDL', number: '498', digits: 2, currency: 'Moldovan Leu', countries: ['Moldova (The Republic Of)'], symbol: 'lei' },
