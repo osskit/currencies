@@ -2,8 +2,8 @@ import { data } from './data.js';
 import type { Currency, CurrencyCode } from './types.js';
 
 const currencyValues = Object.values(data);
-export const currencyCodes = Object.keys(data) as CurrencyCode[];
-export const currencyCodesSet = new Set(currencyCodes);
+export const currencyCodes = Object.keys(data) as readonly CurrencyCode[];
+export const currencyCodesSet: ReadonlySet<CurrencyCode> = new Set(currencyCodes);
 export const isCurrencyCode = (code: unknown): code is CurrencyCode =>
   typeof code === 'string' && currencyCodesSet.has(code as CurrencyCode);
 
